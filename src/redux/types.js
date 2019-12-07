@@ -2,6 +2,9 @@ export const SET_AUTHENTICATED = "SET_AUTHENTICATED";
 export const SET_UNAUTHENTICATED = "SET_SET_UNAUTHENTICATED";
 export const SET_USER = "SET_USER";
 export const LOADING_USER = "LOADING_USER";
+export const SET_SCREAMS = "SET_SCREAMS";
+export const LIKE_SCREAM = "LIKE_SCREAM";
+export const UNLIKE_SCREAM = "UNLIKE_SCREAM";
 
 //UI
 

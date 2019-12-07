@@ -91,7 +91,6 @@ export const uploadImage = formData => dispatch => {
 };
 
 export const editUserDeails = userDetails => dispatch => {
-  console.log("Im being called loool", userDetails);
   dispatch({ type: LOADING_USER });
   axios
     .post("/user", userDetails)

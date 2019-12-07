@@ -10,7 +10,8 @@ const initialState = {
   credentials: {},
   likes: [],
   notifications: [],
-  loading: false
+  loading: false,
+  payload: []
 };
 
 export default function(state = initialState, action) {

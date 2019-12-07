@@ -1,33 +1,23 @@
 import React, { Component } from "react";
 import Grid from "@material-ui/core/Grid";
-import axios from "axios";
-
 import Scream from "../componets/Scream";
 import Profile from "../componets/Profile";
 import { connect } from "react-redux";
 
-import { getUserData } from "../redux/actions/userAction";
+import { getScreams } from "../redux/actions/dataActions";
 
 class home extends Component {
   state = {
     screams: null
   };
   componentDidMount() {
-    axios
-      .get("/screams")
-      .then(res => {
-        this.setState({
-          screams: res.data
-        });
-      })
-      .catch(err => console.log(err));
-    this.props.getUserData();
+    this.props.getScreams();
   }
+
   render() {
-    let recentScreamsMarkup = this.state.screams ? (
-      this.state.screams.map((scream, index) => (
-        <Scream key={index} scream={scream} />
-      ))
+    const { screams } = this.props.data;
+    let recentScreamsMarkup = screams ? (
+      screams.map((scream, index) => <Scream key={index} scream={scream} />)
     ) : (
       <p> Loading ....</p>
     );
@@ -46,10 +36,8 @@ class home extends Component {
   }
 }
 
-const mapStateToProps = state => ({});
+const mapStateToProps = state => ({
+  data: state.data
+});
 
-const mapActionsToProps = {
-  getUserData
-};
-
-export default connect(mapStateToProps, mapActionsToProps)(home);
+export default connect(mapStateToProps, { getScreams })(home);
