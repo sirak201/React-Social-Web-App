@@ -15,9 +15,11 @@ import relativeTime from "dayjs/plugin/relativeTime";
 import { connect } from "react-redux";
 import { likeScream, unlikeScream } from "../redux/actions/dataActions";
 import MyButton from "../utls/MBbutton";
+import DeleteScream from "./DeleteScream";
 
 const styles = {
   card: {
+    position: "relative",
     display: "flex",
     marginBottom: 20
   },
@@ -37,12 +39,13 @@ class Scream extends Component {
       this.props.user.likes.find(
         like => like.screamId === this.props.scream.screamId
       )
-    )
+    ) {
       return true;
-    else return false;
+    } else return false;
   };
 
   likeScream = () => {
+    console.log("Im being called");
     this.props.likeScream(this.props.scream.screamId);
   };
   unlikeScream = () => {
@@ -62,7 +65,10 @@ class Scream extends Component {
         likeCount,
         commentCount
       },
-      user: { authenticated }
+      user: {
+        authenticated,
+        credentials: { handle }
+      }
     } = this.props;
 
     const likeButton = !authenticated ? (
@@ -76,10 +82,15 @@ class Scream extends Component {
         <Favorite color="primary"></Favorite>
       </MyButton>
     ) : (
-      <MyButton tip="Like">
+      <MyButton tip="Like" onClick={this.likeScream}>
         <FavoriteBorder color="primary"></FavoriteBorder>
       </MyButton>
     );
+
+    const deleteButton =
+      authenticated && userHandle === handle ? (
+        <DeleteScream screamId={screamId}></DeleteScream>
+      ) : null;
 
     return (
       <Card className={classes.card}>
@@ -97,14 +108,19 @@ class Scream extends Component {
           >
             {userHandle}
           </Typography>
+
+          {deleteButton}
           <Typography variant="body2" color="textSecondary">
             {dayjs(createdAt).fromNow()}
           </Typography>
           <Typography variant="body1">{body}</Typography>
           {likeButton}
           <span>{likeCount} Likes</span>
-          <MyButton tip="comments"></MyButton>
-          <ChatIcon color="primary"></ChatIcon>
+
+          <MyButton tip="Comment">
+            <ChatIcon color="primary"></ChatIcon>
+          </MyButton>
+
           <span>{commentCount} comment </span>
         </CardContent>
       </Card>
