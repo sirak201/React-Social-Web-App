@@ -2,7 +2,9 @@ import {
   SET_USER,
   SET_AUTHENTICATED,
   SET_UNAUTHENTICATED,
-  LOADING_USER
+  LOADING_USER,
+  UNLIKE_SCREAM,
+  LIKE_SCREAM
 } from "../types";
 
 const initialState = {
@@ -10,8 +12,7 @@ const initialState = {
   credentials: {},
   likes: [],
   notifications: [],
-  loading: false,
-  payload: []
+  loading: false
 };
 
 export default function(state = initialState, action) {
@@ -34,6 +35,27 @@ export default function(state = initialState, action) {
         ...state,
         loading: true
       };
+    case LIKE_SCREAM: {
+      return {
+        ...state,
+        likes: [
+          ...state.likes,
+          {
+            userHandle: state.credentials.handle,
+            screamId: action.payload.screamId
+          }
+        ]
+      };
+    }
+
+    case UNLIKE_SCREAM: {
+      return {
+        ...state,
+        likes: state.likes.filter(
+          like => like.screamId === action.payload.screamId
+        )
+      };
+    }
 
     default:
       return state;

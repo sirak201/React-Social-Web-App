@@ -24,3 +24,27 @@ export const getScreams = () => dispatch => {
       });
     });
 };
+
+export const likeScream = screamID => dispatch => {
+  axios
+    .get(`/scream/${screamID}/like`)
+    .then(res => {
+      dispatch({
+        type: LIKE_SCREAM,
+        payload: res.data
+      });
+    })
+    .catch(err => console.log(err));
+};
+
+export const unlikeScream = screamID => dispatch => {
+  axios
+    .get(`/scream/${screamID}/unlike`)
+    .then(res => {
+      dispatch({
+        type: UNLIKE_SCREAM,
+        payload: res.data
+      });
+    })
+    .catch(err => console.log(err));
+};

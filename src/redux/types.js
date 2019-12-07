@@ -5,7 +5,7 @@ export const LOADING_USER = "LOADING_USER";
 export const SET_SCREAMS = "SET_SCREAMS";
 export const LIKE_SCREAM = "LIKE_SCREAM";
 export const UNLIKE_SCREAM = "UNLIKE_SCREAM";
-
+export const LOADING_Data = "LOADING_Data";
 //UI
 
 export const SET_ERRORS = "SET_ERRORS";
